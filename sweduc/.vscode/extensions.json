@@ -1,0 +1,17 @@
+{
+    "recommendations": [
+        "wmaurer.change-case",
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "eamodio.gitlens",
+        "ms-vsliveshare.vsliveshare",
+        "ms-vsliveshare.vsliveshare-pack",
+        "eg2.vscode-npm-script",
+        "xdebug.php-debug",
+        "neilbrayfield.php-docblocker",
+        "xdebug.php-pack",
+        "bmewburn.vscode-intelephense-client",
+        "ikappas.phpcs",
+        "bradlc.vscode-tailwindcss"
+    ]
+}

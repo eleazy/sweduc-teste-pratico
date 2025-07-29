@@ -1,0 +1,34 @@
+
+@import 'toastr';
+@import 'sweetalert';
+@import 'animate';
+
+// Tema padrão do sistema
+@import 'jquery.ui.timepicker';
+@import 'datePicker';
+@import 'clockpicker';
+@import 'bootstrap-colorpicker.min';
+
+@import 'default';
+
+@media screen {
+    @import 'screen';
+}
+
+@media print {
+    @import 'print';
+}
+
+@import '../../public/bootstrap/css/bootstrap';
+@import '../../public/bootstrap/css/bootstrap-theme.min';
+
+.ddsmoothmenu {
+    a:hover {
+        text-decoration: none;
+    }
+}
+
+@import 'switch-toggle';
+@import 'switch-toggle-2';
+@import 'politica-funcionarios-page';
+@import 'table';

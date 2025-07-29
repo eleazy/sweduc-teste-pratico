@@ -1,0 +1,206 @@
+@page {
+
+  @PageBreak{
+    page-break:always;
+    page-break-inside:auto;
+  }
+
+  /*size:landscape;*/
+}
+.noPrint, #divmenu, .button, #footer, #message-yellow, #message-blue, #message-red, #message-green { display:none !important; -webkit-appearance: none !important;  }
+
+.impressao { display:block !important; -webkit-appearance: block !important;  }
+
+p {
+	margin: 0px;
+}
+
+table { border-collapse: collapse; border:0px; color:#000; page-break-inside:auto; }
+
+
+/*
+.naoquebradentro, .naoquebradentro tr, .naoquebradentro tr td, .naoquebradentro thead tr th, .naoquebradentro tr th div, .naoquebradentro tr td div {
+  page-break-inside:avoid;
+  -webkit-page-break-inside: avoid;
+}
+
+.quebrapagina {
+  -webkit-page-break-before: always;
+  page-break-before:always;
+  display:block;
+}
+
+#product-table { border-collapse: collapse; border:0px; color:#000; page-break-inside:auto; }
+
+#product-table tbody tr:nth-child(even) {page-break-inside:avoid;page-break-after:auto; background-color:#aaa !important; border:1px solid #ccc; padding:10px; -webkit-print-color-adjust:exact; }
+#product-table tbody tr:nth-child(even) td{padding:10px !important;}
+#product-table tbody tr:nth-child(2n+3) {page-break-inside:avoid;page-break-after:auto; background-color:#eee !important; border:1px solid #ccc; padding:10px; -webkit-print-color-adjust:exact;}
+#product-table tbody tr:nth-child(2n+3) td{padding:10px !important;}
+#product-table tbody tr:first-child{page-break-inside:avoid; color:#fff; height:60px; page-break-after:auto; background-color:#333 !important; border:1px solid #ccc; padding:10px !important;margin:10px !important; -webkit-print-color-adjust:exact;}
+#product-table tbody tr:first-child td{padding:10px !important;margin:10px !important;}
+#product-table tr{display:block;}
+*/
+#product-table { border-collapse: collapse; border:0px; color:#000; page-break-inside:auto; }
+
+#product-table thead {page-break-inside:avoid; color:#fff; page-break-after:auto; background-color:#aaa !important; -webkit-print-color-adjust:exact;}
+#product-table thead tr {page-break-inside:avoid;page-break-after:auto; -webkit-print-color-adjust:exact; }
+#product-table thead tr th {border:1px solid #000; background-color: #999; color:#000; padding:10px !important; font-size: 12px;}
+
+#product-table tbody tr {page-break-inside:avoid; page-break-after:auto; }
+#product-table tbody tr td { padding:3px !important; page-break-inside:avoid; font-size: 12px; border:1px solid #ccc; }
+
+#product-table tbody tr:nth-child(even) td{ background-color: #eee; -webkit-print-color-adjust:exact; }
+#product-table tbody tr:nth-child(2n+1) td{ background-color: #fff; -webkit-print-color-adjust:exact; }
+
+.prod-table { border-collapse: collapse; border:0px; color:#000; page-break-inside:auto; }
+
+.prod-table thead {page-break-inside:avoid; color:#fff; page-break-after:auto; background-color:#aaa !important; -webkit-print-color-adjust:exact;}
+.prod-table thead tr {page-break-inside:avoid;page-break-after:auto; -webkit-print-color-adjust:exact; }
+.prod-table thead tr th {border:1px solid #000; background-color: #999; color:#000; padding:10px !important; font-size: 12px;}
+
+.prod-table tbody tr {page-break-inside:avoid; page-break-after:auto; }
+.prod-table tbody tr td { padding:3px !important; page-break-inside:avoid; font-size: 12px; border:1px solid #ccc; }
+
+.prod-table tbody tr:nth-child(even) td{ background-color: #eee; -webkit-print-color-adjust:exact; }
+.prod-table tbody tr:nth-child(2n+1) td{ background-color: #fff; -webkit-print-color-adjust:exact; }
+
+
+#product-table1 { border-collapse: collapse; border:0px; color:#000; page-break-inside:auto; }
+
+#product-table1 thead {page-break-inside:avoid; color:#fff; page-break-after:auto; background-color:#aaa !important; -webkit-print-color-adjust:exact;}
+#product-table1 thead tr {page-break-inside:avoid;page-break-after:auto; -webkit-print-color-adjust:exact; }
+#product-table1 thead tr th {border:1px solid #000; background-color: #999; color:#000; padding:10px !important; font-size: 12px;}
+
+#product-table1 tbody tr {page-break-inside:avoid;page-break-after:auto; -webkit-print-color-adjust:exact; }
+#product-table1 tbody tr td { padding:3px !important; page-break-inside:avoid; font-size: 12px;}
+#product-table1 tbody tr td hr{ margin:10px 0px !important; }
+
+
+
+#product-table1 tbody tr:nth-child(6n+1) td{ background-color: #eee; border:1px solid #000; }
+#product-table1 tbody tr:nth-child(6n+2) td{ background-color: #eee; border:1px solid #000; }
+#product-table1 tbody tr:nth-child(6n+3) td{ background-color: #eee; border:1px solid #000; }
+#product-table1 tbody tr:nth-child(6n+4) td{ background-color: #fff; border:1px solid #000; }
+#product-table1 tbody tr:nth-child(6n+5) td{ background-color: #fff; border:1px solid #000; }
+#product-table1 tbody tr:nth-child(6n+6) td{ background-color: #fff; border:1px solid #000; }
+
+
+.table1 { border-collapse: collapse; border:0px; color:#000; page-break-inside:auto; }
+.table1 thead {page-break-inside:avoid; color:#000; page-break-after:auto; background-color:#fff !important; -webkit-print-color-adjust:exact;}
+.table1 thead tr {page-break-inside:avoid;page-break-after:auto; -webkit-print-color-adjust:exact; }
+.table1 thead tr th {border:1px solid #000; background-color: #fff; color:#000; padding:5px !important; font-size: 12px;}
+.table1 tbody tr {page-break-inside:avoid;page-break-after:auto; -webkit-print-color-adjust:exact; }
+.table1 tbody tr td { border:1px solid #000; padding:3px !important; page-break-inside:avoid; font-size: 12px;}
+.table1 tbody tr td hr{ margin:10px 0px !important; }
+/*
+.table1 tbody tr:nth-child(even) td{ background-color: #eee; -webkit-print-color-adjust:exact; }
+.table1 tbody tr:nth-child(2n+1) td{ background-color: #ccc; -webkit-print-color-adjust:exact; }
+*/
+/*
+#content-table	{	border:1px solid #ccc; color:#000; background-color:#fff !important; line-height: 0px; page-break-inside:auto; }
+#content-table tbody tr:nth-child(even) {page-break-inside:avoid;page-break-after:auto; background-color:#aaa !important; border:1px solid #ccc; -webkit-print-color-adjust:exact; }
+#content-table tbody tr:nth-child(2n+3) {page-break-inside:avoid;page-break-after:auto; background-color:#eee !important; border:1px solid #ccc; -webkit-print-color-adjust:exact;}
+#content-table tbody tr:first-child{page-break-inside:avoid; color:#fff; height:60px; page-break-after:auto; background-color:#333 !important; border:1px solid #ccc; -webkit-print-color-adjust:exact;}
+*/
+
+/* label span{ visibility: hidden; }
+input[type="checkbox"] {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  background: url(../images/forms/check_radio_sheet.png) left top no-repeat;
+}
+input[type="checkbox"]:checked  {
+  background: url(../images/forms/check_radio_sheet.png) -19px top no-repeat;
+}
+
+#conteudoBusca,#conteudo{display:block;} */
+#cabecalhoPrint { display:block !important;  font-size: 12px;}
+
+input[type="checkbox"], input[type="checkbox"]:checked  { display:block !important; }
+
+.rotate {
+  text-align:center;
+  white-space: nowrap;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  /* Should be unset in IE9+ I think. */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.rotate:before {
+    content:'';
+    padding-top:110%;/* takes width as reference, + 10% for faking some extra padding */
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.tabelacomborda tr td{
+  text-align:center;
+  /* white-space: nowrap; */
+  padding:1px;
+  page-break-inside:avoid;
+  border-color: #000;
+}
+
+.tabelacomborda tr th  {
+  text-align:center;
+  height:170px;
+  /*white-space: nowrap;*/
+  padding:1px;
+  page-break-inside:avoid;
+  border-color: #000;
+}
+
+
+.tabelacomborda tr th div {
+  text-align:center;
+  /*white-space: nowrap; */
+  /*page-break-inside:avoid;*/
+}
+
+.tabelacombordasimples tr td {
+  text-align:left;
+  padding:1px;
+  display:block;
+  font-size:11px;
+  border:1px solid #000;
+  white-space: nowrap;
+  min-width:15px;
+  page-break-inside:avoid;
+}
+.tabelacombordasimples tr th {
+  text-align:left;
+  padding:1px;
+  font-size:12px;
+  font-weight:bold;
+  border:1px solid #000;
+  white-space: nowrap;
+  min-width:15px;
+}
+.tabelacombordasimples tr td div{
+  font-size:8px;
+  width:11px;
+  text-align:center;
+  padding:1px;
+  font-weight:bold;
+}
+.tabelacombordasimples tr th div{
+  font-size:8px;
+  width:11px;
+  text-align:center;
+  padding:1px;
+  font-weight:bold;
+}

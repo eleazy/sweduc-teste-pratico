@@ -1,0 +1,73 @@
+html *{
+    margin:0;
+    padding: 0;
+}
+#sw-container {
+    width: 1000px;
+    margin-bottom: 0 auto;
+}
+
+.header-cont {
+    overflow: hidden;
+    position:fixed;
+    width: 100%;
+    top:0px;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #cdcdcd;
+    z-index: 1000;
+    height:70px;
+}
+
+.margin-header {
+    margin-top:70px;
+}
+
+.sw-logo-cliente {
+}
+
+.sw-logo-cliente img{
+    border: 0;
+    margin-left: 40px;
+}
+
+.sw-user-info {
+    width: 50%;
+    margin-left: 50%;
+    text-align: right;
+}
+
+.clearfloat {
+    clear: both;
+}
+
+.sw-menulateral li {
+    list-style: none;
+    list-style-type: none;
+    text-align: center;
+    padding:5px;
+}
+
+.sw-menulateral li:hover {
+    list-style: none;
+    list-style-type: none;
+    text-align: center;
+    padding:5px;
+    background-color: #efefef;;
+}
+
+.sw-menulateral li img {
+    min-width: 50px;
+    margin: 0 auto;
+}
+
+.col-menu {
+    width: 300px;
+}
+
+.spacer-col-menu {
+    margin-left: 300px;
+}
+
+.spacer-l10 {
+    margin-left: 10px;
+}

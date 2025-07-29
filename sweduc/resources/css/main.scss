@@ -1,0 +1,15 @@
+
+.bs3 {
+    @import './legacy.scss';
+}
+
+@import 'bootstrap-theme';
+@import "~bootstrap/scss/bootstrap";
+
+// Generate `.bg-*` color utilities
+@each $color, $value in $grays {
+    @include bg-variant('.bg-gray-#{$color}', $value);
+}
+
+// @import './success-checkmark.scss';
+@import 'sweetalert2/src/sweetalert2.scss';

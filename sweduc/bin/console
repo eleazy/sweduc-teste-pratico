@@ -1,0 +1,2 @@
+#!/bin/bash
+docker compose exec --env="XDEBUG_MODE=off" app php ./bin/console.php $*;

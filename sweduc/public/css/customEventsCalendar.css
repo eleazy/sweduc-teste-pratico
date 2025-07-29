@@ -1,0 +1,567 @@
+:root{
+    --leftBGcolor: #ffebbb;
+    --leftBGHover: #ffefca;
+    --infoBorderBottomColor: #b0b0b0;
+    --borderBottomColor: #8b8b8b;
+    --subleBorderBottom: #d6d6d6;
+    --activeColor: #ffbb38;
+    --activeColorLeft: #cb6f00;
+    --toggleCalendarBG: #ffebbd;
+    --colorCalendarIcon: #cb6f00;
+}
+
+#calendar-wrapper h2, h3, h4, h5, p {
+    margin: 0;
+}
+
+#calendar-wrapper {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    align-items: start;
+    font-weight: 300;
+    font-family: "Kanit", sans-serif;
+    padding: 0px 15px;
+    margin: 10px 0px 20px 0px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur( 4px );
+    opacity: 1;
+    transition: opacity 0.5s ease, height 0.5s ease;
+    z-index: 9;
+}
+.calendarHide {
+    height: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+}
+
+#calendar-outer {
+    margin: 140px 0px 0px 70px;
+    display: flex;
+    border-radius: 20px;
+    border: 1px solid var(--infoBorderBottomColor);
+    width: 900px;
+    height: 72vh;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 10px 20px -1px rgba(0, 0, 0, 0.06);
+}
+
+#calendar-left {
+    background-color: var(--leftBGcolor);
+    border-radius: 20px 0px 0px 20px;
+    width: 45%;
+    color:#484848;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+#dia-atual {
+    text-align: center;
+}
+#dia-atual h2 {
+    font-size: 70px;
+}
+#dia-atual h3 {
+    font-size: 20px;
+}
+
+#eventos-proximos-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+#eventoDivOuter {
+    height: 38vh;
+    overflow-y: scroll;
+    border-radius: 20px;
+    transition: all 300ms ease-in-out;
+}
+#eventoDivOuter:hover {
+    background-color: var(--leftBGHover);
+}
+#eventos-proximos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+#eventos-proximos h3 {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+#eventos-proximos h4, h5{
+    font-weight: 300;
+    font-size: 15px;
+}
+#eventos-proximos h5 {
+    font-size: 14px;
+}
+#eventos-proximos p {
+    font-size: 14px;
+    font-weight:400;
+    margin-right: 10px;
+}
+.eventoDiv {
+    border-bottom: 1px solid var(--subleBorderBottom);
+    margin: 6px 0px 6px 20px;
+}
+.eventoDiv div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+}
+.eventoDiv.active p {
+    color:var(--activeColorLeft);
+    font-size: 16px !important;
+}
+.eventoDiv.active h4 {
+    font-size: 16px !important;
+}
+.eventoDiv.active h5 {
+    font-size: 14px;
+}
+
+#dia-selecionado, #eventos-dia-selecionado {
+    justify-content: start !important;
+}
+#dia-selecionado h3 {
+    font-weight: 300;
+}
+#eventos-dia-selecionado, #novo-evento-outer {
+    height: 80%;
+    width: 100%;
+    overflow-y: scroll;
+    text-align: justify;
+    scrollbar-width: thin;
+    scrollbar-color: var(--activeColor) var(--leftBGcolor);
+}
+#eventos-dia-selecionado::-webkit-scrollbar,
+#eventoDivOuter::-webkit-scrollbar,
+#novo-evento-outer::-webkit-scrollbar {
+    width: 10px;
+}
+#eventos-dia-selecionado::-webkit-scrollbar-track,
+#eventoDivOuter::-webkit-scrollbar-track,
+#novo-evento-outer::-webkit-scrollbar-track {
+    background: var(--leftBGcolor);
+    border-radius: 10px;
+}
+#eventos-dia-selecionado::-webkit-scrollbar-thumb,
+#eventoDivOuter::-webkit-scrollbar-thumb,
+#novo-evento-outer::-webkit-scrollbar-thumb {
+    background: var(--activeColor);
+    border-radius: 10px;
+}
+#eventos-dia-selecionado::-webkit-scrollbar-thumb:hover,
+#eventoDivOuter::-webkit-scrollbar-thumb:hover,
+#novo-evento-outer::-webkit-scrollbar-thumb:hover {
+    background: var(--activeColorLeft);
+}
+
+
+.eventosDiaDiv {
+    margin: 10px 0px;
+    border-bottom: 1px solid var(--infoBorderBottomColor);
+}
+.eventosDiaDiv h5 {
+    font-weight: 400 !important;
+    font-size: 17px !important;
+}
+.eventosDiaDiv h4 {
+    font-weight: 300 !important;
+    font-size: 18px !important;
+}
+.editEvent, .deleteEvent{
+    width: 50%;
+}
+.editEvent:hover, .deleteEvent:hover {
+    transition: all 300ms ease-in-out;
+    scale: 1.04;
+}
+
+#left-buttons {
+    display:flex;
+    justify-content: space-between;
+    padding-bottom: 3px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid var(--infoBorderBottomColor);
+    transition: border-bottom-width 0.3s ease-in-out;
+}
+#left-buttons svg {
+    height: 20px;
+    opacity: 0.7;
+    margin: 0px 0px 0px 10px;
+}
+#novo-evento {
+    display: flex;
+    align-items: center;
+}
+#left-buttons h2{
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 400;
+}
+#closeEventsDay {
+    display:none;
+}
+#closeEventsDay.active {
+    display: flex;
+    cursor: pointer;
+}
+#novo-evento h2:hover,
+#closeEventsDay:hover {
+    scale: 1.1;
+    transition: scale 0.2s ease-in-out;
+}
+
+#novo-evento-outer {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+#novo-evento-outer h3 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #484848;
+}
+#novo-evento-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 7px;
+    align-items: center;
+}
+
+.divTiposUnidades {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    height: 70px
+}
+.divTiposUnidades select {
+    width: 100%;
+    padding: 2px;
+    border-radius: 10px;
+    border: 1px solid var(--infoBorderBottomColor);
+    cursor: pointer;
+}
+
+#newEvTitle,
+#newEvDesc,
+#newEvDate,
+#newEvTurmas,
+#newEvTipo,
+#newEvCursos,
+#newEvSeries {
+    width: 100%;
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--infoBorderBottomColor);
+    font-size: 14px;
+}
+#newEvDesc {
+    font-size: 15px;
+    height: 100px;
+}
+#newEvTitle:focus,
+#newEvDesc:focus,
+#newEvTurmas:focus,
+#newEvCursos:focus,
+#newEvSeries:focus {
+    outline: none;
+    border: 1px solid var(--activeColor);
+}
+#newEvTurmas {
+    resize: none;
+    height: 120px;
+}
+
+#newEvCursos,
+#newEvSeries {
+    resize: none;
+    height: 90px;
+}
+.novo-evento-botoes {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+}
+.novo-evento-botoes:hover {
+    color: var(--activeColor);
+    scale: 1.2;
+    transition: scale 0.2s ease-in-out;
+}
+
+#calendar-right {
+    padding: 15px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 65%;
+    background-color:white;
+    border-radius: 0px 20px 20px 0px;
+}
+#calendar-right div {
+    width: 100%;
+}
+#selecao-ano {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+#selecao-ano h2 {
+    opacity: 0.3;
+}
+#selecao-ano div {
+    opacity: 0.6;
+    font-size: 25px;
+    text-align: center;
+    width: 40px;
+    cursor: pointer;
+}
+#selecao-ano div:hover {
+    opacity: 1;
+    transition: border-bottom-width 0.3s ease-in-out;
+    scale: 1.3;
+}
+
+#selecao-meses {
+    display: flex;
+    border-bottom: 1px solid var(--borderBottomColor);
+    padding: 0px 15px 5px 15px;
+    cursor:default;
+    font-weight: 300;
+    opacity: 0.7;
+    text-align: center;
+}
+#selecao-meses div {
+    font-size: 17px;
+}
+#selecao-meses div:hover {
+    color: var(--activeColor);
+    opacity: 1;
+    font-weight: 500;
+    cursor: pointer;
+}
+.mes-atual{
+    color: var(--activeColor);
+    opacity: 1;
+    font-weight: 500;
+}
+
+
+#calendario-dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 8px;
+    width: 100%;
+    max-width: 900px;
+    justify-items: center;
+}
+
+.week {
+    cursor: default;
+    font-size: 18px;
+    opacity:0.6;
+    font-weight: 500;
+}
+.calendario-dia, .week {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.calendario-dia {
+    width: 35px !important;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.calendario-dia:hover {
+    background-color: var(--activeColor);
+    color: white;
+    font-weight: 500;
+    border-radius: 50%;
+    scale: 1.2;
+    transition: scale 0.2s ease-in-out;
+}
+
+.has-event {
+    background-color: var(--leftBGcolor);
+    color: #444444;
+    font-weight: 500;
+    border-radius: 50%;
+}
+.dia-atual {
+    background-color: var(--activeColor);
+    color: white;
+    font-weight: 500;
+    border-radius: 50%;
+}
+
+/* _______________________FULL HD_______________________ */
+
+@media screen and (min-width: 1920px) {
+    #toggleCalendar {
+        width: 55px;
+        height: 55px;
+        top: 180px;
+    }
+
+    #toggleCalendar svg {
+        width: 40px;
+    }
+    #calendar-wrapper {
+        margin: 50px 0px 20px 0px;
+    }
+    #calendar-outer {
+        width: 1000px;
+        height: 600px;
+    }
+
+    #dia-atual h2 {
+        font-size: 100px;
+    }
+    #eventos-proximos h3 {
+        font-size: 18px;
+    }
+    #eventos-proximos h4, h5{
+        font-size: 17px;
+    }
+    #eventos-proximos h5 {
+        font-size: 16px;
+    }
+    .eventoDiv.active h4 {
+       font-size: 17px !important;
+    }
+
+    #eventoDivOuter {
+        height: 37vh;
+    }
+
+    #selecao-meses div {
+        font-size: 19px;
+    }
+    .week {
+        font-size: 20px;
+    }
+    .calendario-dia {
+        width: 50px !important;
+        height: 50px;
+        font-size: 22px;
+    }
+
+}
+
+/* _______________________mobile_______________________ */
+
+@media screen and (max-width: 768px) {
+
+    #calendar-wrapper {
+        position: absolute;
+        margin-top: 0px;
+        height: 8000px;
+        justify-content: center;
+        left: 0;
+        top: 0;
+        bottom: unset;
+        z-index: 9;
+    }
+    #calendar-outer {
+        flex-direction: column;
+        width: 95vw;
+        height: auto;
+        margin: 20px 0px 0px 0px;
+    }
+    #calendar-left {
+        width:100%;
+        min-height: 250px;
+        border-radius: 20px 20px 0px 0px;
+        padding: 10px 15px;
+    }
+    #left-buttons {
+        flex-direction: row-reverse;
+    }
+    #novo-evento-form {
+        gap: 10px;
+    }
+    .novo-evento-botoes {
+        margin: 10px 5px;
+    }
+
+    #calendar-right {
+        width: 100%;
+        align-items: center;
+        padding: 10px 15px;
+        border-radius: 0px 0px 20px 20px;
+    }
+    #selecao-meses {
+        padding: 10px 0px;
+        overflow-x: scroll;
+    }
+    #selecao-meses div {
+        font-size: 19px !important;
+        padding: 0px 5px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #calendar-outer {
+        flex-direction: column;
+        width: 95vw;
+        height: 100%;
+    }
+    #calendar-left {
+        width:100%;
+        border-radius: 20px 20px 0px 0px;
+        padding: 10px 15px;
+    }
+    #left-buttons {
+        flex-direction: row-reverse;
+    }
+    .novo-evento-botoes {
+        margin: 10px 5px;
+    }
+
+    #calendar-right {
+        width: 100%;
+        align-items: center;
+        padding: 10px 15px;
+    }
+    #selecao-meses {
+        padding: 10px 0px;
+        overflow-x: scroll;
+    }
+    #selecao-meses div {
+        font-size: 16px !important;
+        padding: 0px 5px;
+    }
+
+    #selecao-ano h2 {
+        font-size: 24px;
+    }
+    #calendario-dias {
+        grid-gap: 0px;
+        width: 100%;
+    }
+    .week {
+        font-size: 17px;
+    }
+    .calendario-dia {
+        width: 35px !important;
+        height: 35px;
+        font-size: 16px;
+    }
+}

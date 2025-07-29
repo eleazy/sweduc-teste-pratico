@@ -1,0 +1,29 @@
+
+.tab-group {
+    @apply flex font-bold border-b;
+}
+
+.tab-item {
+    @apply py-2 px-5;
+
+    a {
+        @apply text-gray-700;
+
+        &:hover {
+            @apply no-underline;
+            @apply text-purple-700;
+        }
+    }
+}
+
+.tab-item.active {
+    @apply border-b-2 border-purple-700 text-gray-700;
+
+    a {
+        @apply text-purple-700;
+
+        &:hover {
+            @apply text-purple-700;
+        }
+    }
+}

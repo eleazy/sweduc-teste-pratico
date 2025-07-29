@@ -1,0 +1,1470 @@
+{% extends "Layout/Page" %}
+
+
+{% block heading %}
+    Configurações | Escola | Políticas de acesso
+{% endblock %}
+
+{% block content %}
+<form id="politicas-funcionarios" onsubmit="event.preventDefault();sweduc.politicas.salvarPermissoes(event);">
+    <hr>
+
+    <div style="margin: 1rem 0;">
+        <div style="max-width: 360px;">
+            <label for="unidade">Unidade</label>
+            <select required name="unidade[]" class="form-control" multiple>
+                <option value="0" {% if unidadesAtivas contains 0 %}selected{% endif %}>
+                    Unidade do funcionário
+                </option>
+
+                {% for item in unidades %}
+                    <option value="{{ item.id }}" {% if item.selecionada %}selected{% endif %}>
+                        {{ item.unidade }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <nav>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <a href="#alunos" data-toggle="tab" role="tab" aria-controls="alunos">Alunos</a>
+            </li>
+            <li role="presentation">
+                <a href="#academico" data-toggle="tab" role="tab" aria-controls="academico">Acadêmico</a>
+            </li>
+            <li role="presentation">
+                <a href="#marketing" data-toggle="tab" role="tab" aria-controls="marketing">Marketing</a>
+            </li>
+            <li role="presentation">
+                <a href="#calendario" data-toggle="tab" role="tab" aria-controls="calendario">Calendário</a>
+            </li>
+            <li role="presentation">
+                <a href="#financeiro" data-toggle="tab" role="tab" aria-controls="financeiro">Financeiro</a>
+            </li>
+            <li role="presentation">
+                <a href="#estoque" data-toggle="tab" role="tab" aria-controls="estoque">Estoque</a>
+            </li>
+            <li role="presentation">
+                <a href="#empresas" data-toggle="tab" role="tab" aria-controls="empresas">Empresas</a>
+            </li>
+            <li role="presentation">
+                <a href="#sistemas" data-toggle="tab" role="tab" aria-controls="sistemas">Sistemas</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="tab-content">
+        <input type="hidden" name="grupoId" value="{{ id }}">
+
+        <section id="alunos" class="tab-pane active" role="tabpanel">
+            <h2 class="h3">
+                Alunos
+            </h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Alunos
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-alunos-consultar">
+                        <input id="academico-alunos-consultar" type="checkbox" name="academico-alunos-consultar" {% if permissoes contains "academico-alunos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-alunos-cadastrar">
+                        <input type="checkbox" name="academico-alunos-cadastrar" id="academico-alunos-cadastrar" {% if permissoes contains "academico-alunos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-alunos-editar">
+                        <input type="checkbox" name="academico-alunos-editar" id="academico-alunos-editar" {% if permissoes contains "academico-alunos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-alunos-excluir">
+                        <input type="checkbox" name="academico-alunos-excluir" id="academico-alunos-excluir" {% if permissoes contains "academico-alunos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+
+                    <label class="switch-toggle" for="academico-alunos-alterar-anuidade">
+                        <input type="checkbox" name="academico-alunos-alterar-anuidade" id="academico-alunos-alterar-anuidade" {% if permissoes contains "academico-alunos-alterar-anuidade" %}checked{% endif %}>
+                        Alterar Anuidade
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Responsaveis
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-responsaveis-consultar">
+                        <input type="checkbox" name="academico-responsaveis-consultar" id="academico-responsaveis-consultar" {% if permissoes contains "academico-responsaveis-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-responsaveis-cadastrar">
+                        <input type="checkbox" name="academico-responsaveis-cadastrar" id="academico-responsaveis-cadastrar" {% if permissoes contains "academico-responsaveis-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-responsaveis-editar">
+                        <input type="checkbox" name="academico-responsaveis-editar" id="academico-responsaveis-editar" {% if permissoes contains "academico-responsaveis-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-responsaveis-excluir">
+                        <input type="checkbox" name="academico-responsaveis-excluir" id="academico-responsaveis-excluir" {% if permissoes contains "academico-responsaveis-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="funcionarios-container">
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Ocorrencias
+                    </h3>
+
+                    <div>
+                        <label class="switch-toggle" for="academico-ocorrencias-consultar">
+                            <input type="checkbox" name="academico-ocorrencias-consultar" id="academico-ocorrencias-consultar" {% if permissoes contains "academico-ocorrencias-consultar" %}checked{% endif %}>
+                            Consultar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Entrevistas
+                    </h3>
+
+                    <div>
+                        <label class="switch-toggle" for="academico-entrevistas-consultar">
+                            <input type="checkbox" name="academico-entrevistas-consultar" id="academico-entrevistas-consultar" {% if permissoes contains "academico-entrevistas-consultar" %}checked{% endif %}>
+                            Consultar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Solicitações
+                    </h3>
+
+                    <div>
+                        <label class="switch-toggle" for="academico-solicitacoes-consultar">
+                            <input type="checkbox" name="academico-solicitacoes-consultar" id="academico-solicitacoes-consultar" {% if permissoes contains "academico-solicitacoes-consultar" %}checked{% endif %}>
+                            Consultar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Controle Portaria
+                    </h3>
+
+                    <div>
+                        <label class="switch-toggle" for="academico-controle-portaria-consultar">
+                            <input type="checkbox" name="academico-controle-portaria-consultar" id="academico-controle-portaria-consultar" {% if permissoes contains "academico-controle-portaria-consultar" %}checked{% endif %}>
+                            Consultar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Matriculados Novo Ano
+                    </h3>
+
+                    <div>
+                        <label class="switch-toggle" for="academico-matriculados-novo-ano-consultar">
+                            <input type="checkbox" name="academico-matriculados-novo-ano-consultar" id="academico-matriculados-novo-ano-consultar" {% if permissoes contains "academico-matriculados-novo-ano-consultar" %}checked{% endif %}>
+                            Consultar
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="academico" class="tab-pane" role="tabpanel">
+            <h2 class="h3">
+                Acadêmico
+            </h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Cursos
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-cursos-consultar">
+                        <input id="academico-cursos-consultar" type="checkbox" name="academico-cursos-consultar" {% if permissoes contains "academico-cursos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-cursos-cadastrar">
+                        <input type="checkbox" name="academico-cursos-cadastrar" id="academico-cursos-cadastrar" {% if permissoes contains "academico-cursos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-cursos-editar">
+                        <input type="checkbox" name="academico-cursos-editar" id="academico-cursos-editar" {% if permissoes contains "academico-cursos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-cursos-excluir">
+                        <input type="checkbox" name="academico-cursos-excluir" id="academico-cursos-excluir" {% if permissoes contains "academico-cursos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Séries
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-series-consultar">
+                        <input id="academico-series-consultar" type="checkbox" name="academico-series-consultar" {% if permissoes contains "academico-series-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-series-cadastrar">
+                        <input type="checkbox" name="academico-series-cadastrar" id="academico-series-cadastrar" {% if permissoes contains "academico-series-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-series-editar">
+                        <input type="checkbox" name="academico-series-editar" id="academico-series-editar" {% if permissoes contains "academico-series-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-series-excluir">
+                        <input type="checkbox" name="academico-series-excluir" id="academico-series-excluir" {% if permissoes contains "academico-series-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Turmas
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-turmas-consultar">
+                        <input id="academico-turmas-consultar" type="checkbox" name="academico-turmas-consultar" {% if permissoes contains "academico-turmas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-turmas-cadastrar">
+                        <input type="checkbox" name="academico-turmas-cadastrar" id="academico-turmas-cadastrar" {% if permissoes contains "academico-turmas-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-turmas-editar">
+                        <input type="checkbox" name="academico-turmas-editar" id="academico-turmas-editar" {% if permissoes contains "academico-turmas-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-turmas-excluir">
+                        <input type="checkbox" name="academico-turmas-excluir" id="academico-turmas-excluir" {% if permissoes contains "academico-turmas-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Disciplinas
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-disciplinas-consultar">
+                        <input id="academico-disciplinas-consultar" type="checkbox" name="academico-disciplinas-consultar" {% if permissoes contains "academico-disciplinas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-disciplinas-cadastrar">
+                        <input type="checkbox" name="academico-disciplinas-cadastrar" id="academico-disciplinas-cadastrar" {% if permissoes contains "academico-disciplinas-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-disciplinas-editar">
+                        <input type="checkbox" name="academico-disciplinas-editar" id="academico-disciplinas-editar" {% if permissoes contains "academico-disciplinas-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-disciplinas-excluir">
+                        <input type="checkbox" name="academico-disciplinas-excluir" id="academico-disciplinas-excluir" {% if permissoes contains "academico-disciplinas-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Grade
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-grade-consultar">
+                        <input id="academico-grade-consultar" type="checkbox" name="academico-grade-consultar" {% if permissoes contains "academico-grade-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-grade-cadastrar">
+                        <input type="checkbox" name="academico-grade-cadastrar" id="academico-grade-cadastrar" {% if permissoes contains "academico-grade-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-grade-editar">
+                        <input type="checkbox" name="academico-grade-editar" id="academico-grade-editar" {% if permissoes contains "academico-grade-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-grade-excluir">
+                        <input type="checkbox" name="academico-grade-excluir" id="academico-grade-excluir" {% if permissoes contains "academico-grade-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Faltas
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-faltas-consultar">
+                        <input id="academico-faltas-consultar" type="checkbox" name="academico-faltas-consultar" {% if permissoes contains "academico-faltas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-faltas-alterar">
+                        <input type="checkbox" name="academico-faltas-alterar" id="academico-faltas-alterar" {% if permissoes contains "academico-faltas-alterar" %}checked{% endif %}>
+                        Alterar
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Notas
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-notas-consultar">
+                        <input id="academico-notas-consultar" type="checkbox" name="academico-notas-consultar" {% if permissoes contains "academico-notas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-notas-cadastrar">
+                        <input type="checkbox" name="academico-notas-cadastrar" id="academico-notas-cadastrar" {% if permissoes contains "academico-notas-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-notas-editar">
+                        <input type="checkbox" name="academico-notas-editar" id="academico-notas-editar" {% if permissoes contains "academico-notas-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-notas-excluir">
+                        <input type="checkbox" name="academico-notas-excluir" id="academico-notas-excluir" {% if permissoes contains "academico-notas-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Notas 2
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-notas-2-liberar-unidade">
+                        <input id="academico-notas-2-liberar-unidade" type="checkbox" name="academico-notas-2-liberar-unidade" {% if permissoes contains "academico-notas-2-liberar-unidade" %}checked{% endif %}>
+                        Liberar unidade
+                    </label>
+
+                    <label class="switch-toggle" for="academico-notas-2-liberar-periodo">
+                        <input type="checkbox" name="academico-notas-2-liberar-periodo" id="academico-notas-2-liberar-periodo" {% if permissoes contains "academico-notas-2-liberar-periodo" %}checked{% endif %}>
+                        Liberar período
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Cálculo de médias
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-calculo-de-medias-consultar">
+                        <input id="academico-calculo-de-medias-consultar" type="checkbox" name="academico-calculo-de-medias-consultar" {% if permissoes contains "academico-calculo-de-medias-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-calculo-de-medias-cadastrar">
+                        <input type="checkbox" name="academico-calculo-de-medias-cadastrar" id="academico-calculo-de-medias-cadastrar" {% if permissoes contains "academico-calculo-de-medias-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-calculo-de-medias-editar">
+                        <input type="checkbox" name="academico-calculo-de-medias-editar" id="academico-calculo-de-medias-editar" {% if permissoes contains "academico-calculo-de-medias-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-calculo-de-medias-excluir">
+                        <input type="checkbox" name="academico-calculo-de-medias-excluir" id="academico-calculo-de-medias-excluir" {% if permissoes contains "academico-calculo-de-medias-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Planejamento pedagógico
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-planejamento-pedagogico-consultar">
+                        <input id="academico-planejamento-pedagogico-consultar" type="checkbox" name="academico-planejamento-pedagogico-consultar" {% if permissoes contains "academico-planejamento-pedagogico-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-planejamento-pedagogico-cadastrar">
+                        <input type="checkbox" name="academico-planejamento-pedagogico-cadastrar" id="academico-planejamento-pedagogico-cadastrar" {% if permissoes contains "academico-planejamento-pedagogico-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-planejamento-pedagogico-excluir">
+                        <input type="checkbox" name="academico-planejamento-pedagogico-excluir" id="academico-planejamento-pedagogico-excluir" {% if permissoes contains "academico-planejamento-pedagogico-excluir" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-planejamento-pedagogico-editar">
+                        <input type="checkbox" name="academico-planejamento-pedagogico-editar" id="academico-planejamento-pedagogico-editar" {% if permissoes contains "academico-planejamento-pedagogico-editar" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Diário online
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-diario-online-acessar">
+                        <input id="academico-diario-online-acessar" type="checkbox" name="academico-diario-online-acessar" {% if permissoes contains "academico-diario-online-acessar" %}checked{% endif %}>
+                        Acessar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-diario-online-liberar">
+                        <input type="checkbox" name="academico-diario-online-liberar" id="academico-diario-online-liberar" {% if permissoes contains "academico-diario-online-liberar" %}checked{% endif %}>
+                        Liberar
+                    </label>
+
+                    <label class="switch-toggle" for="academico-diario-online-acesso-total">
+                        <input type="checkbox" name="academico-diario-online-acesso-total" id="academico-diario-online-acesso-total" {% if permissoes contains "academico-diario-online-acesso-total" %}checked{% endif %}>
+                        Acesso total
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Outros
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="academico-relatorios-emitir">
+                        <input id="academico-relatorios-emitir" type="checkbox" name="academico-relatorios-emitir" {% if permissoes contains "academico-relatorios-emitir" %}checked{% endif %}>
+                        Emitir relatórios
+                    </label>
+
+                    <label class="switch-toggle" for="academico-graficos-emitir">
+                        <input type="checkbox" name="academico-graficos-emitir" id="academico-graficos-emitir" {% if permissoes contains "academico-graficos-emitir" %}checked{% endif %}>
+                        Gerar gráficos
+                    </label>
+
+                    <label class="switch-toggle" for="academico-fechamento-bimestral-emitir">
+                        <input type="checkbox" name="academico-fechamento-bimestral-emitir" id="academico-fechamento-bimestral-emitir" {% if permissoes contains "academico-fechamento-bimestral-emitir" %}checked{% endif %}>
+                        Emitir fechamento bimestral
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section id="marketing" class="tab-pane" role="tabpanel">
+            <h2 class="h3">Marketing</h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Prospecção
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="marketing-prospeccao-acessar">
+                        <input id="marketing-prospeccao-acessar" type="checkbox" name="marketing-prospeccao-acessar" {% if permissoes contains "marketing-prospeccao-acessar" %}checked{% endif %}>
+                        Acessar
+                    </label>
+
+                    <label class="switch-toggle" for="marketing-visualizar-todas-prospeccoes">
+                        <input id="marketing-visualizar-todas-prospeccoes" type="checkbox" name="marketing-visualizar-todas-prospeccoes" {% if permissoes contains "marketing-visualizar-todas-prospeccoes" %}checked{% endif %}>
+                        Visualizar todos
+                    </label>
+
+                    <label class="switch-toggle" for="marketing-prospeccao-deletar">
+                        <input type="checkbox" name="marketing-prospeccao-deletar" id="marketing-prospeccao-deletar" {% if permissoes contains "marketing-prospeccao-deletar" %}checked{% endif %}>
+                        Delete
+                    </label>
+                </div>
+            </div>
+
+            <div class="funcionarios-container">
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Mídia
+                    </h3>
+
+                    <div class="swtich-toggle-group">
+                        <label class="switch-toggle" for="marketing-midia-acessar">
+                            <input id="marketing-midia-acessar" type="checkbox" name="marketing-midia-acessar" {% if permissoes contains "marketing-midia-acessar" %}checked{% endif %}>
+                            Acessar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Relatório
+                    </h3>
+
+                    <div class="swtich-toggle-group">
+                        <label class="switch-toggle" for="marketing-relatorio-acessar">
+                            <input id="marketing-relatorio-acessar" type="checkbox" name="marketing-relatorio-acessar" {% if permissoes contains "marketing-relatorio-acessar" %}checked{% endif %}>
+                            Acessar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="switch-toggle-panel">
+                    <h3 class="h4">
+                        Agenda
+                    </h3>
+
+                    <div class="swtich-toggle-group">
+                        <label class="switch-toggle" for="marketing-agenda-visualizacao-somente-a-do-funcionario">
+                            <input id="marketing-agenda-visualizacao-somente-a-do-funcionario" type="checkbox" name="marketing-agenda-visualizacao-somente-a-do-funcionario" {% if permissoes contains "marketing-agenda-visualizacao-somente-a-do-funcionario" %}checked{% endif %}>
+                            Visualizar
+                        </label>
+
+                        <label class="switch-toggle" for="marketing-agenda-visualizacao-de-todos-os-funcionarios">
+                            <input id="marketing-agenda-visualizacao-de-todos-os-funcionarios" type="checkbox" name="marketing-agenda-visualizacao-de-todos-os-funcionarios" {% if permissoes contains "marketing-agenda-visualizacao-de-todos-os-funcionarios" %}checked{% endif %}>
+                            Visualizar todos
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calendario" class="tab-pane" role="tabpanel">
+            <h2 class="h3">Calendário</h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Calendário
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="calendario-eventos-acessar">
+                        <input id="calendario-eventos-acessar" type="checkbox" name="calendario-eventos-acessar" {% if permissoes contains "calendario-eventos-acessar" %}checked{% endif %}>
+                        Eventos
+                    </label>
+
+                    <label class="switch-toggle" for="calendario-contas-a-pagar-acessar">
+                        <input id="calendario-contas-a-pagar-acessar" type="checkbox" name="calendario-contas-a-pagar-acessar" {% if permissoes contains "calendario-contas-a-pagar-acessar" %}checked{% endif %}>
+                        Contas a pagar
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section id="financeiro" class="tab-pane" role="tabpanel">
+            <h2 class="h3">Financeiro</h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Contas a pagar
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-consultar">
+                        <input id="financeiro-contas-a-pagar-consultar" type="checkbox" name="financeiro-contas-a-pagar-consultar" {% if permissoes contains "financeiro-contas-a-pagar-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-cadastrar">
+                        <input id="financeiro-contas-a-pagar-cadastrar" type="checkbox" name="financeiro-contas-a-pagar-cadastrar" {% if permissoes contains "financeiro-contas-a-pagar-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-editar">
+                        <input id="financeiro-contas-a-pagar-editar" type="checkbox" name="financeiro-contas-a-pagar-editar" {% if permissoes contains "financeiro-contas-a-pagar-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-excluir">
+                        <input id="financeiro-contas-a-pagar-excluir" type="checkbox" name="financeiro-contas-a-pagar-excluir" {% if permissoes contains "financeiro-contas-a-pagar-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-pagar">
+                        <input id="financeiro-contas-a-pagar-pagar" type="checkbox" name="financeiro-contas-a-pagar-pagar" {% if permissoes contains "financeiro-contas-a-pagar-pagar" %}checked{% endif %}>
+                        Realizar pagamentos
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-reabrir">
+                        <input id="financeiro-contas-a-pagar-reabrir" type="checkbox" name="financeiro-contas-a-pagar-reabrir" {% if permissoes contains "financeiro-contas-a-pagar-reabrir" %}checked{% endif %}>
+                        Reabrir titulos
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-baixar">
+                        <input id="financeiro-contas-a-pagar-baixar" type="checkbox" name="financeiro-contas-a-pagar-baixar" {% if permissoes contains "financeiro-contas-a-pagar-baixar" %}checked{% endif %}>
+                        Baixar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-pagar-cancelar">
+                        <input id="financeiro-contas-a-pagar-cancelar" type="checkbox" name="financeiro-contas-a-pagar-cancelar" {% if permissoes contains "financeiro-contas-a-pagar-cancelar" %}checked{% endif %}>
+                        Cancelar
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Contas a receber
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-consultar">
+                        <input id="financeiro-contas-a-receber-consultar" type="checkbox" name="financeiro-contas-a-receber-consultar" {% if permissoes contains "financeiro-contas-a-receber-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-boleto">
+                        <input id="financeiro-contas-a-receber-boleto" type="checkbox" name="financeiro-contas-a-receber-boleto" {% if permissoes contains "financeiro-contas-a-receber-boleto" %}checked{% endif %}>
+                        Receber boletos
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-recibo">
+                        <input id="financeiro-contas-a-receber-recibo" type="checkbox" name="financeiro-contas-a-receber-recibo" {% if permissoes contains "financeiro-contas-a-receber-recibo" %}checked{% endif %}>
+                        Emitir recibos
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-abonar">
+                        <input id="financeiro-contas-a-receber-abonar" type="checkbox" name="financeiro-contas-a-receber-abonar" {% if permissoes contains "financeiro-contas-a-receber-abonar" %}checked{% endif %}>
+                        Abono
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-cadastrar">
+                        <input id="financeiro-contas-a-receber-cadastrar" type="checkbox" name="financeiro-contas-a-receber-cadastrar" {% if permissoes contains "financeiro-contas-a-receber-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-editar">
+                        <input id="financeiro-contas-a-receber-editar" type="checkbox" name="financeiro-contas-a-receber-editar" {% if permissoes contains "financeiro-contas-a-receber-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-excluir">
+                        <input id="financeiro-contas-a-receber-excluir" type="checkbox" name="financeiro-contas-a-receber-excluir" {% if permissoes contains "financeiro-contas-a-receber-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-receber">
+                        <input id="financeiro-contas-a-receber-receber" type="checkbox" name="financeiro-contas-a-receber-receber" {% if permissoes contains "financeiro-contas-a-receber-receber" %}checked{% endif %}>
+                        Receber
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-alterar-data-recebimento">
+                        <input id="financeiro-contas-a-receber-alterar-data-recebimento" type="checkbox" name="financeiro-contas-a-receber-alterar-data-recebimento" {% if permissoes contains "financeiro-contas-a-receber-alterar-data-recebimento" %}checked{% endif %}>
+                        Alterar data de recebimento
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-reabrir">
+                        <input id="financeiro-contas-a-receber-reabrir" type="checkbox" name="financeiro-contas-a-receber-reabrir" {% if permissoes contains "financeiro-contas-a-receber-reabrir" %}checked{% endif %}>
+                        Reabrir
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-baixar">
+                        <input id="financeiro-contas-a-receber-baixar" type="checkbox" name="financeiro-contas-a-receber-baixar" {% if permissoes contains "financeiro-contas-a-receber-baixar" %}checked{% endif %}>
+                        Baixar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-cancelar">
+                        <input id="financeiro-contas-a-receber-cancelar" type="checkbox" name="financeiro-contas-a-receber-cancelar" {% if permissoes contains "financeiro-contas-a-receber-cancelar" %}checked{% endif %}>
+                        Cancelar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-contas-a-receber-reabrir-no-dia">
+                        <input id="financeiro-contas-a-receber-reabrir-no-dia" type="checkbox" name="financeiro-contas-a-receber-reabrir-no-dia" {% if permissoes contains "financeiro-contas-a-receber-reabrir-no-dia" %}checked{% endif %}>
+                        Reabrir no dia
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Fornecedores
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-fornecedor-consultar">
+                        <input id="financeiro-fornecedor-consultar" type="checkbox" name="financeiro-fornecedor-consultar" {% if permissoes contains "financeiro-fornecedor-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fornecedor-cadastrar">
+                        <input id="financeiro-fornecedor-cadastrar" type="checkbox" name="financeiro-fornecedor-cadastrar" {% if permissoes contains "financeiro-fornecedor-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fornecedor-editar">
+                        <input id="financeiro-fornecedor-editar" type="checkbox" name="financeiro-fornecedor-editar" {% if permissoes contains "financeiro-fornecedor-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fornecedor-excluir">
+                        <input id="financeiro-fornecedor-excluir" type="checkbox" name="financeiro-fornecedor-excluir" {% if permissoes contains "financeiro-fornecedor-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Fluxo de caixa
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-fechamento-de-caixa-geral">
+                        <input id="financeiro-fluxo-de-caixa-fechamento-de-caixa-geral" type="checkbox" name="financeiro-fluxo-de-caixa-fechamento-de-caixa-geral" {% if permissoes contains "financeiro-fluxo-de-caixa-fechamento-de-caixa-geral" %}checked{% endif %}>
+                        Fechamento de caixa geral
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-funcionario-extrato-propria-conta">
+                        <input id="financeiro-fluxo-de-caixa-contas-funcionario-extrato-propria-conta" type="checkbox" name="financeiro-fluxo-de-caixa-contas-funcionario-extrato-propria-conta" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-funcionario-extrato-propria-conta" %}checked{% endif %}>
+                        Extrato própria conta
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-propria-conta">
+                        <input id="financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-propria-conta" type="checkbox" name="financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-propria-conta" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-propria-conta" %}checked{% endif %}>
+                        Movimentação própria conta
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-funcionario-extrato-todas-contas">
+                        <input id="financeiro-fluxo-de-caixa-contas-funcionario-extrato-todas-contas" type="checkbox" name="financeiro-fluxo-de-caixa-contas-funcionario-extrato-todas-contas" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-funcionario-extrato-todas-contas" %}checked{% endif %}>
+                        Extrato todas contas
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-todas-contas">
+                        <input id="financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-todas-contas" type="checkbox" name="financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-todas-contas" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-funcionario-movimentacao-todas-contas" %}checked{% endif %}>
+                        Movimentação todas contas
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-bancarias-extrato">
+                        <input id="financeiro-fluxo-de-caixa-contas-bancarias-extrato" type="checkbox" name="financeiro-fluxo-de-caixa-contas-bancarias-extrato" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-bancarias-extrato" %}checked{% endif %}>
+                        Extrato contas bancárias
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-bancarias-movimentacao">
+                        <input id="financeiro-fluxo-de-caixa-contas-bancarias-movimentacao" type="checkbox" name="financeiro-fluxo-de-caixa-contas-bancarias-movimentacao" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-bancarias-movimentacao" %}checked{% endif %}>
+                        Movimentações bancárias
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-escola-extrato">
+                        <input id="financeiro-fluxo-de-caixa-contas-escola-extrato" type="checkbox" name="financeiro-fluxo-de-caixa-contas-escola-extrato" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-escola-extrato" %}checked{% endif %}>
+                        Extrato caixa escola
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-fluxo-de-caixa-contas-escola-movimentacao">
+                        <input id="financeiro-fluxo-de-caixa-contas-escola-movimentacao" type="checkbox" name="financeiro-fluxo-de-caixa-contas-escola-movimentacao" {% if permissoes contains "financeiro-fluxo-de-caixa-contas-escola-movimentacao" %}checked{% endif %}>
+                        Movimentações caixa escola
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Controle de cheques
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-controle-de-cheques-buscar">
+                        <input id="financeiro-controle-de-cheques-buscar" type="checkbox" name="financeiro-controle-de-cheques-buscar" {% if permissoes contains "financeiro-controle-de-cheques-buscar" %}checked{% endif %}>
+                        Buscar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-controle-de-cheques-trocar">
+                        <input id="financeiro-controle-de-cheques-trocar" type="checkbox" name="financeiro-controle-de-cheques-trocar" {% if permissoes contains "financeiro-controle-de-cheques-trocar" %}checked{% endif %}>
+                        Trocar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-controle-de-cheques-devolver">
+                        <input id="financeiro-controle-de-cheques-devolver" type="checkbox" name="financeiro-controle-de-cheques-devolver" {% if permissoes contains "financeiro-controle-de-cheques-devolver" %}checked{% endif %}>
+                        Devolver
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Comissão
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-comissao-consultar">
+                        <input id="financeiro-comissao-consultar" type="checkbox" name="financeiro-comissao-consultar" {% if permissoes contains "financeiro-comissao-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-comissao-cadastrar">
+                        <input id="financeiro-comissao-cadastrar" type="checkbox" name="financeiro-comissao-cadastrar" {% if permissoes contains "financeiro-comissao-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-comissao-devolver">
+                        <input id="financeiro-comissao-devolver" type="checkbox" name="financeiro-comissao-devolver" {% if permissoes contains "financeiro-comissao-devolver" %}checked{% endif %}>
+                        Devolver
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Relatórios
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="financeiro-relatorios-emitir">
+                        <input id="financeiro-relatorios-emitir" type="checkbox" name="financeiro-relatorios-emitir" {% if permissoes contains "financeiro-relatorios-emitir" %}checked{% endif %}>
+                        Emitir
+                    </label>
+
+                    <label class="switch-toggle" for="financeiro-relatorios-sintetico-analitico">
+                        <input id="financeiro-relatorios-sintetico-analitico" type="checkbox" name="financeiro-relatorios-sintetico-analitico" {% if permissoes contains "financeiro-relatorios-sintetico-analitico" %}checked{% endif %}>
+                        Sintético/analítico
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section id="estoque" class="tab-pane" role="tabpanel">
+            <h2 class="h3">Estoque</h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Materiais
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="estoque-materiais-acessar">
+                        <input id="estoque-materiais-acessar" type="checkbox" name="estoque-materiais-acessar" {% if permissoes contains "estoque-materiais-acessar" %}checked{% endif %}>
+                        Acessar
+                    </label>
+
+                    <label class="switch-toggle" for="estoque-venda-de-material-acessar">
+                        <input id="estoque-venda-de-material-acessar" type="checkbox" name="estoque-venda-de-material-acessar" {% if permissoes contains "estoque-venda-de-material-acessar" %}checked{% endif %}>
+                        Vender
+                    </label>
+
+                    <label class="switch-toggle" for="estoque-materiais-baixar">
+                        <input id="estoque-materiais-baixar" type="checkbox" name="estoque-materiais-baixar" {% if permissoes contains "estoque-materiais-baixar" %}checked{% endif %}>
+                        Baixar
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Configurações
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="estoque-grupos-acessar">
+                        <input id="estoque-grupos-acessar" type="checkbox" name="estoque-grupos-acessar" {% if permissoes contains "estoque-grupos-acessar" %}checked{% endif %}>
+                        Grupos
+                    </label>
+
+                    <label class="switch-toggle" for="estoque-kits-acessar">
+                        <input id="estoque-kits-acessar" type="checkbox" name="estoque-kits-acessar" {% if permissoes contains "estoque-kits-acessar" %}checked{% endif %}>
+                        Kits
+                    </label>
+
+                    <label class="switch-toggle" for="estoque-unidade-de-contagem-acessar">
+                        <input id="estoque-unidade-de-contagem-acessar" type="checkbox" name="estoque-unidade-de-contagem-acessar" {% if permissoes contains "estoque-unidade-de-contagem-acessar" %}checked{% endif %}>
+                        Unidade de contagem
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Financeiro
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="estoque-extrato-acessar">
+                        <input id="estoque-extrato-acessar" type="checkbox" name="estoque-extrato-acessar" {% if permissoes contains "estoque-extrato-acessar" %}checked{% endif %}>
+                        Extrato
+                    </label>
+
+                    <label class="switch-toggle" for="estoque-movimentar-acessar">
+                        <input id="estoque-movimentar-acessar" type="checkbox" name="estoque-movimentar-acessar" {% if permissoes contains "estoque-movimentar-acessar" %}checked{% endif %}>
+                        Movimentação
+                    </label>
+
+                    <label class="switch-toggle" for="estoque-balanco-acessar">
+                        <input id="estoque-balanco-acessar" type="checkbox" name="estoque-balanco-acessar" {% if permissoes contains "estoque-balanco-acessar" %}checked{% endif %}>
+                        Balanço
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section id="empresas" class="tab-pane" role="tabpanel">
+            <h2 class="h3">Empresas</h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Balanço
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-balanco-consultar">
+                        <input id="empresas-balanco-consultar" type="checkbox" name="empresas-balanco-consultar" {% if permissoes contains "empresas-balanco-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-balanco-cadastrar">
+                        <input id="empresas-balanco-cadastrar" type="checkbox" name="empresas-balanco-cadastrar" {% if permissoes contains "empresas-balanco-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-balanco-editar">
+                        <input id="empresas-balanco-editar" type="checkbox" name="empresas-balanco-editar" {% if permissoes contains "empresas-balanco-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-balanco-excluir">
+                        <input id="empresas-balanco-excluir" type="checkbox" name="empresas-balanco-excluir" {% if permissoes contains "empresas-balanco-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Unidades
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-unidades-consultar">
+                        <input id="empresas-unidades-consultar" type="checkbox" name="empresas-unidades-consultar" {% if permissoes contains "empresas-unidades-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-unidades-cadastrar">
+                        <input id="empresas-unidades-cadastrar" type="checkbox" name="empresas-unidades-cadastrar" {% if permissoes contains "empresas-unidades-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-unidades-editar">
+                        <input id="empresas-unidades-editar" type="checkbox" name="empresas-unidades-editar" {% if permissoes contains "empresas-unidades-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-unidades-excluir">
+                        <input id="empresas-unidades-excluir" type="checkbox" name="empresas-unidades-excluir" {% if permissoes contains "empresas-unidades-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Funcionários
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-funcionarios-consultar">
+                        <input id="empresas-funcionarios-consultar" type="checkbox" name="empresas-funcionarios-consultar" {% if permissoes contains "empresas-funcionarios-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-funcionarios-cadastrar">
+                        <input id="empresas-funcionarios-cadastrar" type="checkbox" name="empresas-funcionarios-cadastrar" {% if permissoes contains "empresas-funcionarios-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-funcionarios-editar">
+                        <input id="empresas-funcionarios-editar" type="checkbox" name="empresas-funcionarios-editar" {% if permissoes contains "empresas-funcionarios-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-funcionarios-excluir">
+                        <input id="empresas-funcionarios-excluir" type="checkbox" name="empresas-funcionarios-excluir" {% if permissoes contains "empresas-funcionarios-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Políticas de acesso dos funcionários
+                </h3>
+
+                <p class="switch-toggle-panel-details">
+                    Direito de acessar esta página e determinar configurações de outros usuários
+                </p>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-perfil-de-funcionarios-consultar">
+                        <input id="empresas-perfil-de-funcionarios-consultar" type="checkbox" name="empresas-perfil-de-funcionarios-consultar" {% if permissoes contains "empresas-perfil-de-funcionarios-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-perfil-de-funcionarios-cadastrar">
+                        <input id="empresas-perfil-de-funcionarios-cadastrar" type="checkbox" name="empresas-perfil-de-funcionarios-cadastrar" {% if permissoes contains "empresas-perfil-de-funcionarios-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-perfil-de-funcionarios-editar">
+                        <input id="empresas-perfil-de-funcionarios-editar" type="checkbox" name="empresas-perfil-de-funcionarios-editar" {% if permissoes contains "empresas-perfil-de-funcionarios-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-perfil-de-funcionarios-excluir">
+                        <input id="empresas-perfil-de-funcionarios-excluir" type="checkbox" name="empresas-perfil-de-funcionarios-excluir" {% if permissoes contains "empresas-perfil-de-funcionarios-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Departamentos
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-departamentos-consultar">
+                        <input id="empresas-departamentos-consultar" type="checkbox" name="empresas-departamentos-consultar" {% if permissoes contains "empresas-departamentos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-departamentos-cadastrar">
+                        <input id="empresas-departamentos-cadastrar" type="checkbox" name="empresas-departamentos-cadastrar" {% if permissoes contains "empresas-departamentos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-departamentos-editar">
+                        <input id="empresas-departamentos-editar" type="checkbox" name="empresas-departamentos-editar" {% if permissoes contains "empresas-departamentos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-departamentos-excluir">
+                        <input id="empresas-departamentos-excluir" type="checkbox" name="empresas-departamentos-excluir" {% if permissoes contains "empresas-departamentos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Solicitações
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-solicitacoes-consultar">
+                        <input id="empresas-solicitacoes-consultar" type="checkbox" name="empresas-solicitacoes-consultar" {% if permissoes contains "empresas-solicitacoes-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-solicitacoes-cadastrar">
+                        <input id="empresas-solicitacoes-cadastrar" type="checkbox" name="empresas-solicitacoes-cadastrar" {% if permissoes contains "empresas-solicitacoes-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-solicitacoes-editar">
+                        <input id="empresas-solicitacoes-editar" type="checkbox" name="empresas-solicitacoes-editar" {% if permissoes contains "empresas-solicitacoes-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-solicitacoes-excluir">
+                        <input id="empresas-solicitacoes-excluir" type="checkbox" name="empresas-solicitacoes-excluir" {% if permissoes contains "empresas-solicitacoes-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Contas caixa
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-contas-caixas-consultar">
+                        <input id="empresas-contas-caixas-consultar" type="checkbox" name="empresas-contas-caixas-consultar" {% if permissoes contains "empresas-contas-caixas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-contas-caixas-cadastrar">
+                        <input id="empresas-contas-caixas-cadastrar" type="checkbox" name="empresas-contas-caixas-cadastrar" {% if permissoes contains "empresas-contas-caixas-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-contas-caixas-editar">
+                        <input id="empresas-contas-caixas-editar" type="checkbox" name="empresas-contas-caixas-editar" {% if permissoes contains "empresas-contas-caixas-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-contas-caixas-excluir">
+                        <input id="empresas-contas-caixas-excluir" type="checkbox" name="empresas-contas-caixas-excluir" {% if permissoes contains "empresas-contas-caixas-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Turnos
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-turnos-consultar">
+                        <input id="empresas-turnos-consultar" type="checkbox" name="empresas-turnos-consultar" {% if permissoes contains "empresas-turnos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-turnos-cadastrar">
+                        <input id="empresas-turnos-cadastrar" type="checkbox" name="empresas-turnos-cadastrar" {% if permissoes contains "empresas-turnos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-turnos-editar">
+                        <input id="empresas-turnos-editar" type="checkbox" name="empresas-turnos-editar" {% if permissoes contains "empresas-turnos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-turnos-excluir">
+                        <input id="empresas-turnos-excluir" type="checkbox" name="empresas-turnos-excluir" {% if permissoes contains "empresas-turnos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Períodos
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-periodos-consultar">
+                        <input id="empresas-periodos-consultar" type="checkbox" name="empresas-periodos-consultar" {% if permissoes contains "empresas-periodos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-periodos-cadastrar">
+                        <input id="empresas-periodos-cadastrar" type="checkbox" name="empresas-periodos-cadastrar" {% if permissoes contains "empresas-periodos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-periodos-editar">
+                        <input id="empresas-periodos-editar" type="checkbox" name="empresas-periodos-editar" {% if permissoes contains "empresas-periodos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-periodos-excluir">
+                        <input id="empresas-periodos-excluir" type="checkbox" name="empresas-periodos-excluir" {% if permissoes contains "empresas-periodos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Salas
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-salas-consultar">
+                        <input id="empresas-salas-consultar" type="checkbox" name="empresas-salas-consultar" {% if permissoes contains "empresas-salas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-salas-cadastrar">
+                        <input id="empresas-salas-cadastrar" type="checkbox" name="empresas-salas-cadastrar" {% if permissoes contains "empresas-salas-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-salas-editar">
+                        <input id="empresas-salas-editar" type="checkbox" name="empresas-salas-editar" {% if permissoes contains "empresas-salas-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-salas-excluir">
+                        <input id="empresas-salas-excluir" type="checkbox" name="empresas-salas-excluir" {% if permissoes contains "empresas-salas-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Ocorrências
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-ocorrencias-consultar">
+                        <input id="empresas-ocorrencias-consultar" type="checkbox" name="empresas-ocorrencias-consultar" {% if permissoes contains "empresas-ocorrencias-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-ocorrencias-cadastrar">
+                        <input id="empresas-ocorrencias-cadastrar" type="checkbox" name="empresas-ocorrencias-cadastrar" {% if permissoes contains "empresas-ocorrencias-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-ocorrencias-editar">
+                        <input id="empresas-ocorrencias-editar" type="checkbox" name="empresas-ocorrencias-editar" {% if permissoes contains "empresas-ocorrencias-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-ocorrencias-excluir">
+                        <input id="empresas-ocorrencias-excluir" type="checkbox" name="empresas-ocorrencias-excluir" {% if permissoes contains "empresas-ocorrencias-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Controle de faltas
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-controle-de-faltas-consultar">
+                        <input id="empresas-controle-de-faltas-consultar" type="checkbox" name="empresas-controle-de-faltas-consultar" {% if permissoes contains "empresas-controle-de-faltas-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-controle-de-faltas-alterar">
+                        <input id="empresas-controle-de-faltas-alterar" type="checkbox" name="empresas-controle-de-faltas-alterar" {% if permissoes contains "empresas-controle-de-faltas-alterar" %}checked{% endif %}>
+                        Alterar
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Avaliações
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-avaliacoes-consultar">
+                        <input id="empresas-avaliacoes-consultar" type="checkbox" name="empresas-avaliacoes-consultar" {% if permissoes contains "empresas-avaliacoes-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-avaliacoes-cadastrar">
+                        <input id="empresas-avaliacoes-cadastrar" type="checkbox" name="empresas-avaliacoes-cadastrar" {% if permissoes contains "empresas-avaliacoes-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-avaliacoes-editar">
+                        <input id="empresas-avaliacoes-editar" type="checkbox" name="empresas-avaliacoes-editar" {% if permissoes contains "empresas-avaliacoes-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-avaliacoes-excluir">
+                        <input id="empresas-avaliacoes-excluir" type="checkbox" name="empresas-avaliacoes-excluir" {% if permissoes contains "empresas-avaliacoes-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Documentos
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-documentos-consultar">
+                        <input id="empresas-documentos-consultar" type="checkbox" name="empresas-documentos-consultar" {% if permissoes contains "empresas-documentos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-documentos-cadastrar">
+                        <input id="empresas-documentos-cadastrar" type="checkbox" name="empresas-documentos-cadastrar" {% if permissoes contains "empresas-documentos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-documentos-editar">
+                        <input id="empresas-documentos-editar" type="checkbox" name="empresas-documentos-editar" {% if permissoes contains "empresas-documentos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-documentos-excluir">
+                        <input id="empresas-documentos-excluir" type="checkbox" name="empresas-documentos-excluir" {% if permissoes contains "empresas-documentos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Eventos financeiros
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-eventos-financeiros-consultar">
+                        <input id="empresas-eventos-financeiros-consultar" type="checkbox" name="empresas-eventos-financeiros-consultar" {% if permissoes contains "empresas-eventos-financeiros-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-eventos-financeiros-cadastrar">
+                        <input id="empresas-eventos-financeiros-cadastrar" type="checkbox" name="empresas-eventos-financeiros-cadastrar" {% if permissoes contains "empresas-eventos-financeiros-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-eventos-financeiros-editar">
+                        <input id="empresas-eventos-financeiros-editar" type="checkbox" name="empresas-eventos-financeiros-editar" {% if permissoes contains "empresas-eventos-financeiros-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-eventos-financeiros-excluir">
+                        <input id="empresas-eventos-financeiros-excluir" type="checkbox" name="empresas-eventos-financeiros-excluir" {% if permissoes contains "empresas-eventos-financeiros-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Eventos financeiros
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-parcelamentos-consultar">
+                        <input id="empresas-parcelamentos-consultar" type="checkbox" name="empresas-parcelamentos-consultar" {% if permissoes contains "empresas-parcelamentos-consultar" %}checked{% endif %}>
+                        Consultar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-parcelamentos-cadastrar">
+                        <input id="empresas-parcelamentos-cadastrar" type="checkbox" name="empresas-parcelamentos-cadastrar" {% if permissoes contains "empresas-parcelamentos-cadastrar" %}checked{% endif %}>
+                        Cadastrar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-parcelamentos-editar">
+                        <input id="empresas-parcelamentos-editar" type="checkbox" name="empresas-parcelamentos-editar" {% if permissoes contains "empresas-parcelamentos-editar" %}checked{% endif %}>
+                        Editar
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-parcelamentos-excluir">
+                        <input id="empresas-parcelamentos-excluir" type="checkbox" name="empresas-parcelamentos-excluir" {% if permissoes contains "empresas-parcelamentos-excluir" %}checked{% endif %}>
+                        Excluir
+                    </label>
+                </div>
+            </div>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Outras
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="empresas-mensagem-recibo-alterar">
+                        <input id="empresas-mensagem-recibo-alterar" type="checkbox" name="empresas-mensagem-recibo-alterar" {% if permissoes contains "empresas-mensagem-recibo-alterar" %}checked{% endif %}>
+                        Alterar mensagem de recibo
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-formas-de-pagamento-acessar">
+                        <input id="empresas-formas-de-pagamento-acessar" type="checkbox" name="empresas-formas-de-pagamento-acessar" {% if permissoes contains "empresas-formas-de-pagamento-acessar" %}checked{% endif %}>
+                        Acessar formas de pagamento
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-notificacoes-acessar">
+                        <input id="empresas-notificacoes-acessar" type="checkbox" name="empresas-notificacoes-acessar" {% if permissoes contains "empresas-notificacoes-acessar" %}checked{% endif %}>
+                        Acessar notificações
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-motivos-acessar">
+                        <input id="empresas-motivos-acessar" type="checkbox" name="empresas-motivos-acessar" {% if permissoes contains "empresas-motivos-acessar" %}checked{% endif %}>
+                        Acessar motivos
+                    </label>
+
+                    <label class="switch-toggle" for="empresas-lista-de-ocorrencias-acessar">
+                        <input id="empresas-lista-de-ocorrencias-acessar" type="checkbox" name="empresas-lista-de-ocorrencias-acessar" {% if permissoes contains "empresas-lista-de-ocorrencias-acessar" %}checked{% endif %}>
+                        Lista de ocorrências
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section id="sistemas" class="tab-pane" role="tabpanel">
+            <h2 class="h3">Sistema</h2>
+
+            <div class="switch-toggle-panel">
+                <h3 class="h4">
+                    Geral
+                </h3>
+
+                <div class="swtich-toggle-group">
+                    <label class="switch-toggle" for="sistema-upload-acessar">
+                        <input id="sistema-upload-acessar" type="checkbox" name="sistema-upload-acessar" {% if permissoes contains "sistema-upload-acessar" %}checked{% endif %}>
+                        Acessar uploads
+                    </label>
+
+                    <label class="switch-toggle" for="sistema-backups-executar-backups">
+                        <input id="sistema-backups-executar-backups" type="checkbox" name="sistema-backups-executar-backups" {% if permissoes contains "sistema-backups-executar-backups" %}checked{% endif %}>
+                        Executar backups
+                    </label>
+
+                    <label class="switch-toggle" for="sistema-log-de-atividades-visualizar-logs">
+                        <input id="sistema-log-de-atividades-visualizar-logs" type="checkbox" name="sistema-log-de-atividades-visualizar-logs" {% if permissoes contains "sistema-log-de-atividades-visualizar-logs" %}checked{% endif %}>
+                        Visualizar logs de atividades
+                    </label>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div style="margin: 1rem 0;">
+        <button
+            type="submit"
+            class="btn primary-color"
+            form="politicas-funcionarios"
+        >
+            Salvar
+        </button>
+
+        <button
+            type="button"
+            class="btn danger-color"
+            onclick="sweduc.carregarUrl('config/politicas/funcionarios');"
+        >
+            Voltar
+        </button>
+    </div>
+</form>
+{% endblock %}
