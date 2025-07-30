@@ -1,10 +1,8 @@
 # Teste prático SWsistemas 
 
-Atividades para teste prático de habilidades
-
-São propostas duas atividades: 
-1: Importação de notas permitindo caracteres não numéricos (branch: atividade-importacao-de-notas)
-2? Otimização do histórico escolar (branch: atividade-otimizacao-historico-escolar)
+São propostas duas atividades:<br>
+1: Importação de notas permitindo caracteres não numéricos <br>(branch: atividade-importacao-de-notas)<br>
+2: Otimização do histórico escolar <br>(branch: atividade-otimizacao-historico-escolar)<br>
 
 ## Instruções para rodar o sistema no localhost
 
@@ -29,3 +27,6 @@ base para atividade 1: db_atividade_importacao_de_notas.sql.zip
 base para atividade 2: db_atividade_historico_escolar.sql.zip
 
 obs: Descomprimir os arquivos antes de importar 
+
+### Sistema ficará disponícel em 
+http://localhost/
