@@ -6,6 +6,14 @@ São propostas duas atividades:<br>
 
 ## Instruções para rodar o sistema no localhost
 
+### Entrar numa das branchs
+```
+git checkout atividade-importacao-de-notas
+```
+```
+git checkout atividade-otimizacao-historico-escolar
+```
+
 ### Entrar no diretório e fazer a build dos containers
 cd sweduc
 docker compose build
