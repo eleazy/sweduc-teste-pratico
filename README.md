@@ -1,9 +1,8 @@
 # Instruções da atividade 2 "Otimização do histórico escolar"
 
-O histórico escolar dos alunos está demorando muito para abrir, cerca de 23 segundos em localhost,
-e cerca de 5 minutos no servidor remoto, a proposta é que você chegue a uma solução para esse
-problema de otimização. Essa lentidão se dá pois o arquivo faz muitas querys dentro de loops, porém
-existe outra maneira de gerar histórico, de forma muito mais otimizada.
+O histórico escolar dos alunos está apresentando um tempo de carregamento excessivo — cerca de 23 segundos em ambiente local e aproximadamente 5 minutos no servidor remoto.
+
+A principal causa dessa lentidão é a execução de um grande número de consultas ao banco de dados dentro de loops. No entanto, existe uma abordagem alternativa, muito mais eficiente, para gerar o histórico escolar, que evita essas consultas repetitivas e melhora significativamente a performance. A proposta é revisar e otimizar o código atual para resolver esse problema de forma definitiva.
 
 ## Caminho para reproduzir o problema
 1. Abrir o sistema no localhost, http://localhost/
