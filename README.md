@@ -1,8 +1,8 @@
 # Teste prático SWsistemas 
 
 São propostas duas atividades:<br>
-1: Importação de notas permitindo caracteres não numéricos <br><small>(branch: atividade-importacao-de-notas)</small><br>
-2: Otimização do histórico escolar <br><small>(branch: atividade-otimizacao-historico-escolar)</small><br>
+1: Importação de notas permitindo caracteres não numéricos <br>(branch: atividade-importacao-de-notas)<br>
+2: Otimização do histórico escolar <br>(branch: atividade-otimizacao-historico-escolar)<br>
 
 ## Instruções para rodar o sistema no localhost
 
@@ -46,7 +46,7 @@ http://localhost:8091/
 base para atividade 1: db_atividade_importacao_de_notas.sql.zip
 base para atividade 2: db_atividade_historico_escolar.sql.zip
 
-<small>obs: Descomprimir os arquivos antes de importar </small>
+obs: Descomprimir os arquivos antes de importar 
 
 ### Sistema ficará disponível em 
 http://localhost/
