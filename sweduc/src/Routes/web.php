@@ -112,17 +112,6 @@ $router->post('/logout', [LoginController::class, 'logout'])->lazyMiddleware(Aut
 $router->get('/', [HomeController::class, 'index'])->lazyMiddleware(AuthMiddleware::class);
 
 
-// Endereço da rota não pode ser modificado pois os assets dependem dele por enquanto
-$router->get('/lib/boletos/boleto', [BoletosController::class, 'index'])
-    ->lazyMiddleware(AuthMiddleware::class);
-
-$router->get('/boleto.pdf', [BoletosController::class, 'pdf'])
-    ->lazyMiddleware(AuthMiddleware::class);
-
-$router->get('/boleto/copiarCodigo', [BoletosController::class, 'copiaCodigo'])
-    ->lazyMiddleware(AuthMiddleware::class);
-
-
 // Boletins
 $router->get('/alunos_boletim_geral.php', [BoletimController::class, 'boletimGeral'])->lazyMiddleware(AuthMiddleware::class);
 $router->post('/alunos_boletim_geral.php', [BoletimController::class, 'boletimGeral'])->lazyMiddleware(AuthMiddleware::class);
@@ -151,23 +140,6 @@ $router->post('/alunos_boletim_cets_fundamental.php', [BoletimController::class,
  * Grupo Configurações
  */
 $router->group('/config', function (RouteGroup $route) {
-    $route->get('/financeiro/cartao', [CartaoConfigController::class, 'index']);
-    $route->get('/financeiro/cartao/{id:number}', [CartaoConfigController::class, 'show']);
-    $route->post('/financeiro/cartao/{id:number}', [CartaoConfigController::class, 'store']);
-
-    $route->get('/financeiro/notificacaoDeCobranca', [NotificacaoCobrancaController::class, 'index']);
-    $route->get('/financeiro/notificacaoDeCobranca/pendentes', [NotificacaoCobrancaController::class, 'pendentes']);
-    $route->get('/financeiro/notificacaoDeCobranca/enviados', [NotificacaoCobrancaController::class, 'enviados']);
-    $route->get('/financeiro/notificacaoDeCobranca/falhas', [NotificacaoCobrancaController::class, 'falhas']);
-    $route->get('/financeiro/notificacaoDeCobranca/logs', [NotificacaoCobrancaController::class, 'logs']);
-    $route->get('/financeiro/notificacaoDeCobranca/getNotificacao/{id:number}', [NotificacaoCobrancaController::class, 'getNotificacao']);
-    $route->post('/financeiro/notificacaoDeCobranca/storeUpdate', [NotificacaoCobrancaController::class, 'setNotificacao']);
-    $route->post('/financeiro/notificacaoDeCobranca/setNotificacaoAtiva', [NotificacaoCobrancaController::class, 'setNotificacaoAtiva']);
-    $route->post('/financeiro/notificacaoDeCobranca/getTitulos', [NotificacaoCobrancaController::class, 'getTitulos']);
-    $route->post('/financeiro/notificacaoDeCobranca/delete/{id:number}', [NotificacaoCobrancaController::class, 'cancelarEnvio']);
-
-    // DELETAR
-    $route->get('/financeiro/notificacaoDeCobranca/agendaEmails', [NotificacaoCobrancaController::class, 'agendaEmails']);
 
     $route->get('/politicas/funcionarios', [PoliticaFuncionarioController::class, 'index']);
     $route->get('/politicas/funcionarios/{id:number}', [PoliticaFuncionarioController::class, 'edit']);
@@ -187,67 +159,6 @@ $router->group('/config', function (RouteGroup $route) {
     $route->post('/logo', [LogoController::class, 'store']);
 })->lazyMiddleware(AuthMiddleware::class);
 
-/**
- * Grupo Financeiro
- */
-$router->group('/financeiro', function (RouteGroup $route) {
-    $route->get('/contasareceber/{id:number}/cartao', [ReceberCartaoController::class, 'index']);
-    $route->post('/contasareceber/{id:number}/cartao', [ReceberCartaoController::class, 'store'])
-        ->lazyMiddleware(VerifyCsrfTokenMiddleware::class);
-    $route->get('/contasareceber/{id:number}/cartao/sucesso', [ReceberCartaoController::class, 'sucesso']);
-    $route->get('/contasareceber/{id:number}/cartao/erro', [ReceberCartaoController::class, 'erro']);
-
-    $route->get('/contas-a-receber/lancamento', [ContasAReceberController::class, 'mostrarFormLancamento']);
-    $route->get('/contas-a-receber/buscar', [ContasAReceberController::class, 'buscar']);
-    $route->get('/contas-a-receber/listar', [ContasAReceberController::class, 'listar']);
-    $route->post('/contas-a-receber/listar', [ContasAReceberController::class, 'listar']);
-
-    $route->get('/pix/buscar', [PixController::class, 'buscar']);
-    $route->get('/pix/listar', [PixController::class, 'listar']);
-    $route->post('/pix/listar', [PixController::class, 'listar']);
-
-
-    $route->post(
-        '/contas-a-receber/relatorios/contatos',
-        ContatosController::class
-    );
-
-    $route->post(
-        '/contas-a-receber/relatorios/serasa',
-        SerasaController::class
-    );
-
-    $route->get('/contas-a-pagar/buscar', [ContasAPagarController::class, 'buscar']);
-    $route->get('/contas-a-pagar/cadastrar', [ContasAPagarController::class, 'cadastrar']);
-    $route->get('/contas-a-pagar/listar', [ContasAPagarController::class, 'listar']);
-    $route->get('/contas-a-pagar/relatorio', [ContasAPagarController::class, 'relatorio']);
-    $route->get('/contas-a-pagar/relatorio-xls', [ContasAPagarController::class, 'relatorioXLS']);
-    $route->post('/contas-a-pagar/recibo', [ContasAPagarController::class, 'recibo']);
-
-    $route->get('/recorrencia/recebimentos', [RecorrenciaController::class, 'mostrarRecebimentos']);
-    $route->get('/recorrencia/planos', [RecorrenciaController::class, 'mostrarPlanos']);
-    $route->get('/recorrencia/assinaturas', [RecorrenciaController::class, 'mostrarAssinaturas']);
-
-    $route->get('/contasapagar/options-autorizar', [ContasAPagarController::class, 'getUsuariosAutorizados']);
-
-    $route->get('/importar-excel/importar', [ImportadorExcelController::class, 'index']);
-    $route->post('/importar-excel/importar', [ImportadorExcelController::class, 'store']);
-    $route->post('/importar-excel/insert', [ImportadorExcelController::class, 'insert']);
-
-    $route->post('/relatorios/balanceteGrafico', [BalanceteController::class, 'getBalanceteGrafData']);
-    $route->get('/contasbanco/listaContasDaUnidade/{unidadeId}', [ContasBancoController::class, 'listaContasDaUnidade']);
-
-    $route->get('/retorno/relatorio', [RetornoRelatorioController::class, 'relatorio']);
-})->lazyMiddleware(AuthMiddleware::class);
-
-/**
- * Grupo WebHooks Publicos
- */
-$router->group('/webhook', function (RouteGroup $route) {
-    $route->post('/santander/boletos', [PixController::class, 'webhookSantander']);
-    $route->get('/santander/pix', [PixController::class, 'webhookPixSantander']);
-    $route->post('/santander/pix', [PixController::class, 'webhookPixSantander']);
-});
 
 /**
  * Grupo Acadêmico
@@ -287,21 +198,6 @@ $router->get('/alunos_cadastra.php', [AlunoController::class, 'cadastro'])->lazy
 $router->post('/alunos_cadastra.php', [AlunoController::class, 'cadastro'])->lazyMiddleware(AuthMiddleware::class);
 
 
-
-/**
- * Grupo Sistema
- */
-$router->group('/sistema', function (RouteGroup $route) {
-    $route->get('/emails', [EmailController::class, 'pendentes']);
-    $route->post('/emails/enviar', [EmailController::class, 'enviarEmail']);
-    $route->get('/emails/pendentes', [EmailController::class, 'pendentes']);
-    $route->get('/emails/enviados', [EmailController::class, 'enviados']);
-    $route->get('/emails/falhas', [EmailController::class, 'falhas']);
-    $route->get('/emails/logs', [EmailController::class, 'logs']);
-
-    $route->get('/emails/configs/index', [EmailController::class, 'index']);
-    $route->post('/emails/configs', [EmailController::class, 'setEmailConfigs']);
-})->lazyMiddleware(AuthMiddleware::class);
 
 
 $router->post('/documento-academico', [DocumentoController::class, 'documentoAcademico'])->lazyMiddleware(AuthMiddleware::class);
