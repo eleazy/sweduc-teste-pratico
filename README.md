@@ -19,6 +19,9 @@ docker exec sweduc-app-1 chmod 777 /app/storage
 ### Ajustar ownership no container
 docker exec sweduc-app-1 chown -R www-data:www-data /app/storage
 
+### (Caso Necessário) Installar packages
+docker exec sweduc-app-1 composer install
+
 ### Entrar no phpmyadmin, criar nova base e importar os respectivos arquivos
 http://localhost:8091/
 
