@@ -7,7 +7,7 @@ error_log
 /**/node_modules
 
 # Arquivo de configuração de ambiente
-.env
+# .env
 
 # Arquivos de execução do docker
 /docker/logs
