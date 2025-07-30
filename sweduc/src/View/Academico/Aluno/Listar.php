@@ -652,17 +652,33 @@ function protocolo(idaluno, nomealuno, unidade, idunidade) {
 }
 
 function historico(idaluno) {
-      $.ajax({
-            url: "aluno_historico_cadastra",
-            type: 'POST',
-            data: {idaluno: idaluno},
-            context: jQuery('#conteudo'),
-            beforeSend: bloqueiaUI,
-            complete: $.unblockUI,
-            success: function (data) {
+    $.ajax({
+        url: "alunos_historico_cadastra.php",
+        type: 'POST',
+        context: jQuery('#conteudo'),
+        data: {idfuncionariounidade: $("#idfuncionariounidade").val(), doc: '0', idaluno: idaluno, idpermissoes: $("#idpermissoes").val(), idpessoalogin: $("#idpessoalogin").val()},
+        beforeSend: function () {
+            $.blockUI({
+                message: $('#displayBox'),
+                css: {
+                    top: ($(window).height() - 400) / 2 + 'px',
+                    left: ($(window).width() - 400) / 2 + 'px',
+                    width: '400px'
+                }
+            });
+        },
+        complete: function () {
+            $.unblockUI();
+        },
+        success: function (data) {
+            $('html, body').animate({scrollTop: 0}, 0);
+            if ($('#conteudoLista').length) {
+                $('#conteudoLista').html($('#conteudoBusca').html());
                 this.html(data);
-            }
-        });
+            } else
+                this.html("<span id='conteudoLista' style='display:none;'>" + $('#conteudoBusca').html() + "</span>" + data);
+        }
+    });
 }
 
 function historicoAntigos(nomealuno) {

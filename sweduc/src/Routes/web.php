@@ -513,8 +513,6 @@ $router->post('/academico_turmas_ata_evolucao.php', [AtaController::class, 'evol
 $router->get('/academico_turmas_ata_objetivo.php', [AtaController::class, 'objetivo'])->lazyMiddleware(AuthMiddleware::class);
 $router->post('/academico_turmas_ata_objetivo.php', [AtaController::class, 'objetivo'])->lazyMiddleware(AuthMiddleware::class);
 
-// Historico
-$router->post('/aluno_historico_cadastra', [HistoricoController::class, 'cadastrar'])->lazyMiddleware(AuthMiddleware::class);
 
 /**
  * Grupo Integração Acadêmico/Financeiro
